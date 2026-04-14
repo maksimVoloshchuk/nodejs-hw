@@ -12,45 +12,45 @@ app.use(cors());
 app.use(express.json());
 app.use(pinoHttp());
 
-// 📌 1. Главный маршрут (чтобы не было Not Found)
+// ✅ главный маршрут
 app.get('/', (req, res) => {
-  res.json({
-    message: 'Server is working 🚀'
+  res.status(200).json({
+    message: 'Server is working 🚀',
   });
 });
 
-// 📌 2. Получить все заметки
+// ✅ получить все заметки
 app.get('/notes', (req, res) => {
-  res.json({
-    message: 'All notes'
+  res.status(200).json({
+    message: 'Retrieved all notes',
   });
 });
 
-// 📌 3. Получить заметку по ID
+// ✅ получить заметку по id
 app.get('/notes/:noteId', (req, res) => {
   const { noteId } = req.params;
 
-  res.json({
-    message: `Retrieved note with ID: ${noteId}`
+  res.status(200).json({
+    message: `Retrieved note with ID: ${noteId}`,
   });
 });
 
-// 📌 4. Тест ошибки
+// ✅ тест ошибки
 app.get('/test-error', (req, res) => {
-  throw new Error('Test error');
+  throw new Error('Simulated server error');
 });
 
-// ❗ Middleware для несуществующих маршрутов
+// ❗ 404 (если маршрут не найден)
 app.use((req, res) => {
   res.status(404).json({
-    message: 'Not Found'
+    message: 'Not Found',
   });
 });
 
-// ❗ Middleware обработки ошибок
+// ❗ обработка ошибок
 app.use((err, req, res, next) => {
   res.status(500).json({
-    message: err.message || 'Server error'
+    message: err.message || 'Server error',
   });
 });
 
