@@ -26,6 +26,4 @@ const noteSchema = new mongoose.Schema(
 
 noteSchema.index({ title: 'text', content: 'text' });
 
-const Note = mongoose.model('note', noteSchema);
-
-export default Note;
+export const Note = mongoose.model('Note', noteSchema);
